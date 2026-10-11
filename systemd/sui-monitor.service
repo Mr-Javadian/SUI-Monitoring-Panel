@@ -1,0 +1,35 @@
+# SUI-Monitoring-Panel — systemd unit template.
+# install.sh fills in the @PLACEHOLDERS@ and installs it as /etc/systemd/system/sui-monitor.service
+[Unit]
+Description=SUI-Monitoring-Panel - live Telegram dashboard for S-UI panels
+Documentation=https://github.com/Mr-Javadian/SUI-Monitoring-Panel
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=@USER@
+Group=@USER@
+WorkingDirectory=@INSTALL_DIR@
+ExecStart=@PHP_BIN@ @INSTALL_DIR@/bin/monitor.php
+Restart=always
+RestartSec=5
+# Exit code 2 = invalid configuration: do not restart-loop, wait for the admin to fix it.
+RestartPreventExitStatus=2
+SyslogIdentifier=sui-monitor
+
+# Hardening: the service only needs to write inside its storage directory.
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=read-only
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+ReadWritePaths=@INSTALL_DIR@/storage
+
+[Install]
+WantedBy=multi-user.target

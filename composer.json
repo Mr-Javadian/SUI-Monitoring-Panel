@@ -1,0 +1,20 @@
+{
+    "name": "mr-javadian/sui-monitoring-panel",
+    "description": "Live Telegram dashboards for S-UI panels: one auto-updating message per server, plus alerts.",
+    "type": "project",
+    "license": "MIT",
+    "homepage": "https://github.com/Mr-Javadian/SUI-Monitoring-Panel",
+    "keywords": ["s-ui", "sing-box", "telegram", "monitoring", "bot", "dashboard"],
+    "require": {
+        "php": ">=8.1",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "SuiMonitor\\": "src/"
+        }
+    },
+    "bin": ["bin/monitor.php"]
+}
